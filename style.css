@@ -60,5 +60,10 @@ body[data-reading-side="left"]{padding-left:184px}
 }
 
 /* Match each heading count in the reading card, including filtered totals. */
-.reading-count{display:block;font-size:13px;font-weight:600;line-height:1.6;margin-top:4px;color:#4c6555}
+.reading-count{display:block;font-size:13px;font-weight:600;line-height:1.6;margin-top:4px;color:#b42332}
 .reading-book .reading-count{font-size:14px}
+
+/* Stronger contrast for unit headings, including their counts and toggles. */
+.unit>summary{background:#505050;color:#fff}
+.unit>summary .unit-title,.unit>summary .node-count{color:#fff}
+.unit>summary>.toggle-box{color:#fff;border-color:#fff;background:transparent}
