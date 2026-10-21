@@ -3,6 +3,8 @@
  const tree=document.getElementById('question-tree');
  const marker=document.getElementById('reading-position');
  if(!tree||!marker)return;
+ const page=document.getElementById('page-content');
+ const main=document.querySelector('main');
  const bookLabel=document.getElementById('reading-book');
  const unitLabel=document.getElementById('reading-unit');
  const switchButton=document.getElementById('reading-side-switch');
@@ -20,12 +22,25 @@
  }
  function update(){
   pending=false;
-  const viewportHeight=window.innerHeight;
+  const docked=window.matchMedia('(max-width:899px)').matches;
+  const pageRect=page.getBoundingClientRect();
+  const viewportTop=docked?pageRect.top:0;
+  const viewportBottom=docked?pageRect.bottom:window.innerHeight;
+  if(docked){marker.style.removeProperty('left');marker.style.removeProperty('right');}
+  else{
+   const rect=main.getBoundingClientRect(),styles=window.getComputedStyle(main);
+   const gap=12,cardWidth=marker.offsetWidth||160;
+   const edge=side==='right'
+    ?rect.right-parseFloat(styles.paddingRight)+gap
+    :rect.left+parseFloat(styles.paddingLeft)-gap-cardWidth;
+   marker.style.left=Math.max(12,Math.min(edge,document.documentElement.clientWidth-cardWidth-12))+'px';
+   marker.style.right='auto';
+  }
   let active=null;
   for(const question of questions){
    if(question.hidden)continue;
    const rect=question.getBoundingClientRect();
-   if(rect.height>0&&rect.bottom>0&&rect.top<viewportHeight){
+   if(rect.height>0&&rect.bottom>viewportTop&&rect.top<viewportBottom){
     const unit=question.closest('.unit'),book=question.closest('.book');
     // A closed ancestor can suppress painting while descendants retain layout boxes.
     if(!unit||!book||!unit.open||!book.open||unit.hidden||book.hidden)continue;
@@ -48,6 +63,7 @@
  }
  switchButton.addEventListener('click',()=>setSide(side==='right'?'left':'right'));
  window.addEventListener('scroll',schedule,{passive:true});
+ page.addEventListener('scroll',schedule,{passive:true});
  window.addEventListener('resize',schedule,{passive:true});
  window.addEventListener('pageshow',schedule);
  tree.addEventListener('toggle',schedule,true);

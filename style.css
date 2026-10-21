@@ -33,19 +33,27 @@ details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;g
 
 .solution-diagram{max-width:560px;margin:20px auto!important}.solution-diagram figcaption{font-size:12px;color:#5d7265;text-align:center;margin-top:6px}
 
-/* Keep a reading-position card in a reserved side gutter on desktop. */
+
+/* Anchor the desktop card to the question column, with a protected side gutter. */
 body[data-reading-side="right"]{padding-right:184px}
 body[data-reading-side="left"]{padding-left:184px}
-.reading-position{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:20;width:160px;max-height:calc(100dvh - 24px);overflow:auto;background:#fff;border:1px solid #c6d5c9;border-top:6px solid var(--reading-color,#d6ebdd);border-radius:9px;box-shadow:0 5px 22px #254c3824;padding:14px 12px 12px}
-body[data-reading-side="left"] .reading-position{right:auto;left:12px}
-.reading-kicker{font-size:11px;color:#677a6c;margin:0 0 9px}
-.reading-book{font-size:16px;line-height:1.65;font-weight:800;color:#254d3c;margin:0 0 9px}
-.reading-unit{font-size:14px;line-height:1.75;color:#3a5042;margin:0;padding-top:9px;border-top:1px solid #e0e7df;overflow-wrap:anywhere}
-.reading-position button{display:block;width:100%;font-size:12px;min-height:40px;margin-top:13px;padding:7px 3px}
-@media(max-width:700px){
- body[data-reading-side="right"],body[data-reading-side="left"]{padding-left:0;padding-right:0}
- .reading-position{top:auto;bottom:max(12px,env(safe-area-inset-bottom));transform:none;width:min(235px,calc(100vw - 24px));padding:10px 12px;border-top-width:4px;max-height:40dvh}
- .reading-kicker{margin-bottom:3px}.reading-book{font-size:14px;margin-bottom:3px}
- .reading-unit{font-size:13px;line-height:1.6;border-top:0;padding-top:0}
- .reading-position button{margin-top:7px;min-height:36px}
+.page-content{min-width:0}
+.reading-position{position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:20;width:160px;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);overflow:auto;background:#fff;border:1px solid #c6d5c9;border-radius:9px;box-shadow:0 5px 22px #254c3824;padding:0 0 12px}
+.reading-kicker{font-size:11px;color:#677a6c;margin:0;padding:11px 12px 8px}
+.reading-book{font-size:17px;line-height:1.65;font-weight:800;color:#254d3c;margin:0;padding:16px 12px;background:var(--reading-color,#d6ebdd);min-height:64px;overflow-wrap:anywhere}
+.reading-unit{font-size:14px;line-height:1.75;color:#3a5042;margin:0;padding:12px 12px 0;overflow-wrap:anywhere}
+.reading-position button{display:block;width:calc(100% - 24px);font-size:12px;min-height:40px;margin:12px 12px 0;padding:7px 3px}
+/* On narrow or zoomed-in screens, a separate bottom row never covers the page. */
+@media(max-width:899px){
+ body[data-reading-side="right"],body[data-reading-side="left"]{padding:0}
+ body{height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(0,1fr) auto;overflow:hidden}
+ .page-content{min-height:0;overflow:auto;overscroll-behavior:contain}
+ .reading-position{position:static;transform:none;width:calc(100% - 24px);max-width:480px;height:148px;max-height:40vh;max-height:40dvh;margin:8px 12px;padding:0;display:grid;grid-template-columns:minmax(0,1fr) 94px;align-items:center;box-shadow:0 2px 10px #254c381a}
+ body[data-reading-side="right"] .reading-position{justify-self:end}
+ body[data-reading-side="left"] .reading-position{justify-self:start}
+ .reading-position[hidden]{display:grid!important;visibility:hidden}
+ .reading-kicker{padding:6px 12px 4px}
+ .reading-book{font-size:16px;min-height:0;padding:9px 12px}
+ .reading-unit{font-size:13px;line-height:1.6;padding:6px 12px}
+ .reading-position button{width:82px;margin:6px;min-height:44px;padding:7px 4px}
 }
