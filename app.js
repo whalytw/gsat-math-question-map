@@ -2,6 +2,8 @@
 (() => {
  const data=window.QUESTION_MAP;
  if(!data){document.getElementById('empty-state').hidden=false;document.getElementById('empty-state').textContent='試題資料未載入，請確認 data.js 與 index.html 放在同一個資料夾。';return;}
+ const solutions=window.QUESTION_SOLUTIONS;
+ if(!solutions){document.getElementById('empty-state').hidden=false;document.getElementById('empty-state').textContent='詳解資料未載入，請確認新增的 solutions.js 與 index.html 放在同一個資料夾，並重新整理頁面。';return;}
  const colors=['#f8d5e2','#fbe0c7','#e5d9f5','#d6ebdd','#f7eab9','#d5e8f5'];
  const tree=document.getElementById('question-tree'), nav=document.getElementById('book-nav');
  const yearInputs=[...document.querySelectorAll('#year-filters input')], indexNodes=[];
@@ -25,6 +27,28 @@
      if(block.type==='text'){const p=node('p',block.text==='題組共用題幹'||block.text==='前題條件'?'context-label':'',block.text);body.append(p);}
      else {const fig=node('figure');const img=node('img');img.src=block.src;img.alt=q.label+' 原卷題目或題組條件';img.loading='lazy';img.decoding='async';fig.append(img);body.append(fig);}
     });
+    const solution=solutions.records[bi+':'+(ui+1)+':'+q.key];
+    const answerDetails=node('details','solution');
+    answerDetails.open=false;
+    answerDetails.dataset.solutionFor=q.key;
+    const answerSummary=summary(answerDetails,'查看本單元詳解','solution-title');
+    answerSummary.setAttribute('aria-label',q.label+'，'+book.title+'，'+unit.title+'，詳解');
+    const content=node('div','solution-content');
+    if(solution){
+     content.append(node('p','solution-scope',solution.scope));
+     content.append(node('h4','','本單元切入'));
+     content.append(node('p','solution-method',solution.method));
+     if(solution.focus)content.append(node('p','solution-focus',solution.focus));
+     content.append(node('h4','','解題步驟'));
+     const steps=node('ol','solution-steps');
+     solution.steps.forEach(text=>{const li=node('li');li.append(node('p','',text));steps.append(li);});
+     content.append(steps);
+     if(solution.diagram){const fig=node('figure','solution-diagram');const img=node('img');img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(solution.diagram);img.alt=q.label+' 詳解作圖：斜線為掃描棒掃過的區域 R';fig.append(img,node('figcaption','','作圖示意：斜線部分為所求區域 R。'));content.append(fig);}
+     content.append(node('h4','','答案'),node('p','solution-answer',solution.answer));
+    }else{
+     content.append(node('p','','此單元詳解未載入，請確認 solutions.js 已完整更新。'));
+    }
+    answerDetails.append(content);body.append(answerDetails);
     item.append(body);questions.append(item);qm.push({el:item,data:q});
    });
    units.append(u);um.push({el:u,count:uc,questions:qm});
@@ -58,7 +82,7 @@
  yearInputs.forEach(e=>e.addEventListener('change',filter));
  document.getElementById('select-all').addEventListener('click',()=>{yearInputs.forEach(e=>e.checked=true);filter();});
  document.getElementById('select-none').addEventListener('click',()=>{yearInputs.forEach(e=>e.checked=false);filter();});
- document.getElementById('expand-all').addEventListener('click',()=>{tree.querySelectorAll('details').forEach(d=>d.open=true);});
+ document.getElementById('expand-all').addEventListener('click',()=>{tree.querySelectorAll('details').forEach(d=>d.open=d.className!=='solution');});
  document.getElementById('collapse-all').addEventListener('click',()=>{tree.querySelectorAll('details').forEach(d=>d.open=false);});
  filter();
 })();

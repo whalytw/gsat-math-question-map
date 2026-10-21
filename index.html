@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="110 至 115 年學測數學試題，依課本冊別與單元分類。支援年度篩選與三層樹狀展開收摺。">
 <title>學測數學試題單元地圖</title>
-<link rel="stylesheet" href="style.css">
-<script src="data.js" defer></script>
-<script src="app.js" defer></script>
+<link rel="stylesheet" href="style.css?v=20261021-solutions-1">
+<script src="data.js?v=20261021-solutions-1" defer></script>
+<script src="solutions.js?v=20261021-solutions-1" defer></script>
+<script src="app.js?v=20261021-solutions-1" defer></script>
 </head>
 <body>
 <a class="skip" href="#question-tree">跳至試題分類</a>
@@ -33,7 +34,7 @@
 <main>
  <div class="section-bar"><div><h2>依冊別與單元瀏覽</h2><p id="result-status" role="status" aria-live="polite"></p></div><div class="tree-actions"><button id="expand-all" type="button">全部展開</button><button id="collapse-all" type="button">全部收摺</button></div></div>
  <nav class="book-nav" aria-label="快速前往冊別" id="book-nav"></nav>
- <p class="tree-help">點選 <span class="example-box">−</span> 收摺、<span class="example-box">+</span> 展開。各層可獨立操作；同題在不同單元重複認列。</p>
+ <p class="tree-help">點選 <span class="example-box">−</span> 收摺、<span class="example-box">+</span> 展開。各層可獨立操作；同題在不同單元重複認列。<br>每題下方附有「本單元詳解」，預設收合；「全部展開」只展開冊別、單元與題目，並收合詳解。</p>
  <p class="empty" id="empty-state" hidden>尚未選擇年度。請在上方勾選至少一個年度，即可顯示試題。</p>
  <section id="question-tree" tabindex="-1" aria-label="冊別、單元與試題"></section>
  <section class="reference-area">
@@ -41,6 +42,7 @@
    <p>110 年未分數 A、數 B，對照全部六冊。111 至 115 年數 A 對照數學 1、2、3A、4A，數 B 對照數學 1、2、3B、4B。</p>
    <p>主分類是解答的核心單元；關聯是配合或前置單元；共通認列是不同冊皆已教授相同內容；替代解法是可採用的其他方法；部分涵蓋表示只能處理題目的一部分。</p>
    <p>常用對數可在數學 1 及後續對數單元共通認列；非以 10 為底的對數，依數 A／數 B 路徑認列後續冊別。110 年第 13 題的複數根選項須另補充，沿用部分涵蓋標記。</p>
+   <p>詳解包含本單元切入、逐步推導及答案。同題在不同單元可採不同解法；關聯及部分涵蓋的收錄，會列明該單元的用途及全題還須結合的單元。向量以兩個端點字母表示，例如 AB 表示由 A 指向 B；長度以 |AB|、題目脈絡或文字區分。</p>
   </div></details>
   <details open class="reference" id="index-section"><summary><span class="toggle-box" aria-hidden="true"></span><h2>逐題學習階段索引</h2></summary><div class="reference-body" id="paper-index"></div></details>
  </section>
