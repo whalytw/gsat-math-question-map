@@ -5,8 +5,11 @@
  if(!tree||!marker)return;
  const page=document.getElementById('page-content');
  const main=document.querySelector('main');
- const bookLabel=document.getElementById('reading-book');
- const unitLabel=document.getElementById('reading-unit');
+ const bookLabel=document.getElementById('reading-book-title');
+ const bookCount=document.getElementById('reading-book-count');
+ const unitContainer=document.getElementById('reading-unit');
+ const unitLabel=document.getElementById('reading-unit-title');
+ const unitCount=document.getElementById('reading-unit-count');
  const switchButton=document.getElementById('reading-side-switch');
  const headings=[...tree.querySelectorAll('.book, .unit')];
  const storageKey='gsat-map-reading-side';
@@ -58,10 +61,16 @@
    bookLabel.textContent=active.book.querySelector(':scope > summary .book-title').textContent.replace(/\s+/g,' ').trim();
    unitLabel.textContent=active.unit
     ?active.unit.querySelector(':scope > summary .unit-title').textContent.trim()
-    :'冊別概覽';
+    :'';
    marker.style.setProperty('--reading-color',active.book.style.getPropertyValue('--book-color'));
    currentNode=active.node;
   }
+  // Counts can change after filtering even when the active heading stays the same.
+  bookCount.textContent=active.book.querySelector(':scope > summary .node-count').textContent;
+  unitContainer.hidden=!active.unit;
+  unitCount.textContent=active.unit
+   ?active.unit.querySelector(':scope > summary .node-count').textContent
+   :'';
  }
  function schedule(){
   if(pending)return;

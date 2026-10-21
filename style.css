@@ -58,3 +58,7 @@ body[data-reading-side="left"]{padding-left:184px}
  .reading-unit{font-size:13px;line-height:1.6;padding:6px 12px}
  .reading-position button{width:82px;margin:6px;min-height:44px;padding:7px 4px}
 }
+
+/* Match each heading count in the reading card, including filtered totals. */
+.reading-count{display:block;font-size:13px;font-weight:600;line-height:1.6;margin-top:4px;color:#4c6555}
+.reading-book .reading-count{font-size:14px}

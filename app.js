@@ -70,9 +70,9 @@
    book.units.forEach(unit=>{
     let count=0;
     unit.questions.forEach(q=>{const show=selected.has(q.data.year);q.el.hidden=!show;if(show){count++;unique.add(q.data.key);}});
-    unit.el.hidden=count===0;unit.count.textContent=count+' 筆';bookCount+=count;if(count)unitCount++;
+    unit.el.hidden=count===0;unit.count.textContent='共 '+count+' 題';bookCount+=count;if(count)unitCount++;
    });
-   book.el.hidden=bookCount===0;book.link.hidden=bookCount===0;book.count.textContent=bookCount+' 筆';total+=bookCount;
+   book.el.hidden=bookCount===0;book.link.hidden=bookCount===0;book.count.textContent='共 '+bookCount+' 題';total+=bookCount;
   });
   indexNodes.forEach(e=>{e.hidden=!selected.has(Number(e.dataset.year));});
   document.getElementById('index-section').hidden=selected.size===0;
