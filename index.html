@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="110 至 115 年學測數學試題，依課本冊別與單元分類。支援年度篩選與三層樹狀展開收摺。">
+<title>學測數學試題單元地圖</title>
+<link rel="stylesheet" href="style.css">
+<script src="data.js" defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#question-tree">跳至試題分類</a>
+<header class="masthead">
+ <div class="eyebrow">110—115 年學測 · 數學單元對照</div>
+ <h1>學測數學<br class="mobile-break">試題單元地圖</h1>
+ <p class="lead">沿著課本的學習順序，找到適合現在進度的考古題。</p>
+ <div class="overview"><span>11 份考卷</span><span>220 道原題</span><span>6 冊課本 · 58 個單元</span></div>
+</header>
+<section class="filter-panel" aria-label="年度篩選">
+ <div class="filters-inner">
+  <fieldset><legend>顯示年度</legend><div class="years" id="year-filters">
+   <label><input type="checkbox" value="110" checked><span>110 年</span></label>
+   <label><input type="checkbox" value="111" checked><span>111 年</span></label>
+   <label><input type="checkbox" value="112" checked><span>112 年</span></label>
+   <label><input type="checkbox" value="113" checked><span>113 年</span></label>
+   <label><input type="checkbox" value="114" checked><span>114 年</span></label>
+   <label><input type="checkbox" value="115" checked><span>115 年</span></label>
+  </div></fieldset>
+  <div class="year-actions"><button type="button" id="select-all">全選年度</button><button type="button" id="select-none">取消全選</button></div>
+ </div>
+</section>
+<main>
+ <div class="section-bar"><div><h2>依冊別與單元瀏覽</h2><p id="result-status" role="status" aria-live="polite"></p></div><div class="tree-actions"><button id="expand-all" type="button">全部展開</button><button id="collapse-all" type="button">全部收摺</button></div></div>
+ <nav class="book-nav" aria-label="快速前往冊別" id="book-nav"></nav>
+ <p class="tree-help">點選 <span class="example-box">−</span> 收摺、<span class="example-box">+</span> 展開。各層可獨立操作；同題在不同單元重複認列。</p>
+ <p class="empty" id="empty-state" hidden>尚未選擇年度。請在上方勾選至少一個年度，即可顯示試題。</p>
+ <section id="question-tree" tabindex="-1" aria-label="冊別、單元與試題"></section>
+ <section class="reference-area">
+  <details open class="reference"><summary><span class="toggle-box" aria-hidden="true"></span><h2>分類說明</h2></summary><div class="reference-body">
+   <p>110 年未分數 A、數 B，對照全部六冊。111 至 115 年數 A 對照數學 1、2、3A、4A，數 B 對照數學 1、2、3B、4B。</p>
+   <p>主分類是解答的核心單元；關聯是配合或前置單元；共通認列是不同冊皆已教授相同內容；替代解法是可採用的其他方法；部分涵蓋表示只能處理題目的一部分。</p>
+   <p>常用對數可在數學 1 及後續對數單元共通認列；非以 10 為底的對數，依數 A／數 B 路徑認列後續冊別。110 年第 13 題的複數根選項須另補充，沿用部分涵蓋標記。</p>
+  </div></details>
+  <details open class="reference" id="index-section"><summary><span class="toggle-box" aria-hidden="true"></span><h2>逐題學習階段索引</h2></summary><div class="reference-body" id="paper-index"></div></details>
+ </section>
+ <footer>110 至 115 年學測數學 · 依龍騰課本冊別及單元整理<br>題目影像保留原卷內容；原題與課本內容之權利屬各原權利人。</footer>
+</main>
+<noscript><p class="empty">請啟用 JavaScript，以使用年度篩選與試題分類功能。</p></noscript>
+</body></html>
