@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="110 至 115 年學測數學試題，依課本冊別與單元分類。支援年度篩選與三層樹狀展開收摺。">
 <title>學測數學試題單元地圖</title>
-<link rel="stylesheet" href="style.css?v=20261021-solutions-1">
+<link rel="stylesheet" href="style.css?v=20261022-reading-1">
 <script src="data.js?v=20261021-solutions-1" defer></script>
 <script src="solutions.js?v=20261021-solutions-1" defer></script>
-<script src="app.js?v=20261021-solutions-1" defer></script>
+<script src="app.js?v=20261022-reading-1" defer></script>
+<script src="reading-position.js?v=20261022-reading-1" defer></script>
 </head>
-<body>
+<body data-reading-side="right">
 <a class="skip" href="#question-tree">跳至試題分類</a>
 <header class="masthead">
  <div class="eyebrow">110—115 年學測 · 數學單元對照</div>
@@ -34,7 +35,7 @@
 <main>
  <div class="section-bar"><div><h2>依冊別與單元瀏覽</h2><p id="result-status" role="status" aria-live="polite"></p></div><div class="tree-actions"><button id="expand-all" type="button">全部展開</button><button id="collapse-all" type="button">全部收摺</button></div></div>
  <nav class="book-nav" aria-label="快速前往冊別" id="book-nav"></nav>
- <p class="tree-help">點選 <span class="example-box">−</span> 收摺、<span class="example-box">+</span> 展開。各層可獨立操作；同題在不同單元重複認列。<br>每題下方附有「本單元詳解」，預設收合；「全部展開」只展開冊別、單元與題目，並收合詳解。</p>
+ <p class="tree-help">點選 <span class="example-box">−</span> 收摺、<span class="example-box">+</span> 展開。各層可獨立操作；同題在不同單元重複認列。<br>每題下方附有「查看本題詳解」，預設收合；「全部展開」只展開冊別、單元與題目，並收合詳解。</p>
  <p class="empty" id="empty-state" hidden>尚未選擇年度。請在上方勾選至少一個年度，即可顯示試題。</p>
  <section id="question-tree" tabindex="-1" aria-label="冊別、單元與試題"></section>
  <section class="reference-area">
@@ -48,5 +49,13 @@
  </section>
  <footer>110 至 115 年學測數學 · 依龍騰課本冊別及單元整理<br>題目影像保留原卷內容；原題與課本內容之權利屬各原權利人。</footer>
 </main>
+<aside id="reading-position" class="reading-position" aria-label="目前閱讀位置" hidden>
+ <div class="reading-position-content" aria-live="polite" aria-atomic="true">
+  <p class="reading-kicker">目前閱讀位置</p>
+  <p id="reading-book" class="reading-book"></p>
+  <p id="reading-unit" class="reading-unit"></p>
+ </div>
+ <button id="reading-side-switch" type="button">← 移到左側</button>
+</aside>
 <noscript><p class="empty">請啟用 JavaScript，以使用年度篩選與試題分類功能。</p></noscript>
 </body></html>

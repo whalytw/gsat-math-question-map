@@ -31,7 +31,7 @@
     const answerDetails=node('details','solution');
     answerDetails.open=false;
     answerDetails.dataset.solutionFor=q.key;
-    const answerSummary=summary(answerDetails,'查看本單元詳解','solution-title');
+    const answerSummary=summary(answerDetails,'查看本題詳解','solution-title');
     answerSummary.setAttribute('aria-label',q.label+'，'+book.title+'，'+unit.title+'，詳解');
     const content=node('div','solution-content');
     if(solution){
