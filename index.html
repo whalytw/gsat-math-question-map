@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="110 至 115 年學測數學試題，依課本冊別與單元分類。支援年度篩選與三層樹狀展開收摺。">
 <title>學測數學試題單元地圖</title>
-<link rel="stylesheet" href="style.css?v=20261022-colors-1">
+<link rel="stylesheet" href="style.css?v=20261022-illustrated-1">
 <script src="data.js?v=20261021-solutions-1" defer></script>
 <script src="solutions.js?v=20261021-solutions-1" defer></script>
-<script src="app.js?v=20261022-reading-4" defer></script>
+<script src="rich-solutions.js?v=20261022-illustrated-1" defer></script>
+<script src="overview-data.js?v=20261022-overview-1" defer></script>
+<script src="app.js?v=20261022-illustrated-1" defer></script>
 <script src="reading-position.js?v=20261022-reading-4" defer></script>
 </head>
 <body data-reading-side="right">
@@ -20,6 +22,12 @@
  <p class="lead">沿著課本的學習順序，找到適合現在進度的考古題。</p>
  <div class="overview"><span>11 份考卷</span><span>220 道原題</span><span>6 冊課本 · 58 個單元</span></div>
 </header>
+<section class="overview-section" id="classification-overview" tabindex="-1" aria-labelledby="overview-heading">
+ <div class="overview-heading"><div><div class="eyebrow">年度 × 課本冊別</div><h2 id="overview-heading">110–115 年試題分類總表</h2></div><a class="overview-skip" href="#year-filters">前往年度篩選 ↓</a></div>
+ <p class="overview-help">點選題號，直接前往該冊收錄的題目；題目下方的「回總表」會回到對應題號。同一題可在多冊、多個單元認列，總表連到該冊首次收錄的位置。若該年度未勾選，點題號會自動勾選並展開目標題目。</p>
+ <div class="table-scroll overview-scroll" id="overview-table" tabindex="0" role="region" aria-label="試題分類總表，可左右捲動"></div>
+ <p class="overview-help overview-footnote">依附件總表保留由新到舊的年度順序。110 年未分數 A、數 B；「—」表示該考卷不使用此冊。</p>
+</section>
 <section class="filter-panel" aria-label="年度篩選">
  <div class="filters-inner">
   <fieldset><legend>顯示年度</legend><div class="years" id="year-filters">

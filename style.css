@@ -67,3 +67,66 @@ body[data-reading-side="left"]{padding-left:184px}
 .unit>summary{background:#505050;color:#fff}
 .unit>summary .unit-title,.unit>summary .node-count{color:#fff}
 .unit>summary>.toggle-box{color:#fff;border-color:#fff;background:transparent}
+
+/* Linked overview, before the year filters. */
+.overview-section{max-width:1160px;margin:0 auto;padding:6px 30px 30px;scroll-margin-top:20px}
+.overview-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:12px}
+.overview-heading h2{font-size:23px;margin-top:8px;line-height:1.5}
+.overview-skip{font-size:13px;white-space:nowrap;color:#255348;text-underline-offset:4px}
+.overview-help{font-size:13px;line-height:1.9;color:#596b61;margin:10px 0 16px}
+.overview-scroll{border:1px solid #bfcfc6;border-radius:8px;max-height:680px;max-height:70vh;max-height:70dvh;scroll-padding:14px;overscroll-behavior-x:contain;background:#fff}
+.classification-table{min-width:1050px;width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;font-size:13px}
+.classification-table caption{text-align:left;padding:10px 14px;color:#52685c;font-size:12px;background:#f2f5f1}
+.classification-table th,.classification-table td{border:0;border-right:1px solid #d9e1da;border-bottom:1px solid #d9e1da;padding:11px 9px;white-space:normal;text-align:left;width:auto;vertical-align:top}
+.classification-table th:first-child,.classification-table td:first-child{width:92px;text-align:center}
+.classification-table thead th{position:sticky;top:0;z-index:2;background:var(--book-color,#eef1ed);font-size:15px;font-weight:800;box-shadow:0 1px 0 #afbeb2}
+.classification-table thead th:first-child{z-index:4;left:0;background:#e8eee8;font-size:12px}
+.classification-table tbody th{position:sticky;left:0;z-index:1;background:#f2f5ef;font-size:15px;font-weight:750;box-shadow:1px 0 0 #c7d2c8}
+.classification-table small{display:block;font-size:12px;font-weight:500;line-height:1.7;margin-top:3px}
+.classification-table tbody tr:nth-child(even) td{background:#fafbf9}
+.classification-table td:last-child,.classification-table th:last-child{border-right:0}
+.classification-table tbody tr:last-child>*{border-bottom:0}
+.overview-numbers{display:flex;flex-wrap:wrap;gap:5px}
+.question-number{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:32px;padding:3px 6px;text-decoration:none;color:#225d4b;background:#edf4ee;border:1px solid #d1dfd2;border-radius:4px;font-weight:700;scroll-margin:80px 20px}
+.question-number:hover{background:#255348;color:white;border-color:#255348}
+.not-applicable{color:#89958c;justify-content:center;padding-top:5px}
+.overview-footnote{margin:10px 0 0;font-size:12px}
+.back-overview{display:inline-flex;min-height:36px;align-items:center;margin:10px 0 3px;padding:4px 11px;border:1px solid #cbd9cc;border-radius:5px;background:#f5f8f2;color:#315c47;font-size:13px;text-decoration:none}
+.back-overview:hover{background:#e4eee3}
+.question{scroll-margin-top:20px}.question.jump-highlight{border-color:#507c5f;box-shadow:0 0 0 3px #587c5b22}
+.question-number.jump-highlight{background:#ffe8a2;border-color:#987b2c;color:#4d3b0f;box-shadow:0 0 0 3px #cda33c33}
+
+/* Self-contained textbook math: native MathML with real fraction bars. */
+.solution-content{color:#293a34;font-size:16px;line-height:1.9}
+.q-body .solution-content .solution-location{font-size:12px;line-height:1.7;color:#587062;border-bottom:1px solid #dbe5dc;padding-bottom:12px;margin:0 0 16px;white-space:normal}
+.q-body .solution-content p,.q-body .solution-content p:last-child{font-size:16px;color:#293a34;line-height:2.05;white-space:normal;overflow-wrap:break-word;margin:7px 0}
+.solution-content .solution-scope{font-size:13px;color:#647568;line-height:1.9;padding:0;margin:12px 0 20px}
+.method-card{border-left:4px solid #608771;background:#eef5ed;padding:14px 18px;border-radius:0 7px 7px 0}
+.solution-content h4{font-size:17px;color:#2f5542;margin:0 0 7px;line-height:1.7}
+.solution-content .method-card p{font-size:14px;line-height:1.9}
+.solution-content .working-heading{margin:24px 0 12px}
+.math-run{display:inline-flex;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle;padding:3px 1px 5px;scrollbar-width:thin;line-height:normal}
+.math-run math{font-size:1.13em;font-family:"Cambria Math","STIX Two Math","STIXGeneral","DejaVu Math TeX Gyre",math;line-height:normal;white-space:nowrap}
+.math-run math mfrac{font-size:1em}
+.worked-steps{list-style:none;counter-reset:worked;margin:0;padding:0}
+.worked-steps>li{counter-increment:worked;position:relative;margin:0 0 16px;padding:17px 20px 18px 55px;border:1px solid #dce5dc;border-radius:7px;background:#fff}
+.worked-steps>li::before{content:counter(worked);position:absolute;left:16px;top:17px;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:#e5efe5;color:#2d6149;font-size:14px;font-weight:800}
+.worked-steps h5{font-size:16px;margin:0 0 10px;color:#314f40;font-weight:800;line-height:1.7}
+.q-body .worked-figure{max-width:760px;margin:18px auto 24px;background:#fff;border:1px solid #d9e2e4;border-radius:9px;overflow:hidden}
+.worked-figure svg{display:block;width:100%;height:auto;overflow:hidden;font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif}
+.figure-scroll{max-width:100%;overflow:auto;scrollbar-width:thin}
+.worked-figure figcaption,.worked-table figcaption{font-size:14px;color:#4d6471;line-height:1.95;padding:12px 16px;background:#f4f8fa}
+.q-body .worked-table{margin:18px 0 24px;border:1px solid #d9e2e4;border-radius:8px;overflow:hidden}
+.worked-table table{min-width:440px;font-size:14px;table-layout:auto}
+.worked-table th,.worked-table td{white-space:normal;text-align:center;width:auto;padding:10px 12px}
+.worked-table th:first-child,.worked-table td:first-child,.worked-table td:nth-child(2){width:auto}
+.worked-table th{background:#eaf1f6;color:#35546a}
+.worked-table td .math-run{font-size:15px}
+.math-check{background:#fff8e6;border:1px solid #e8d8ad;border-left:4px solid #b89a49;padding:13px 17px;border-radius:5px;margin:21px 0;color:#66511f}
+.math-check strong{font-size:14px}.solution-content .math-check p{font-size:14px;line-height:1.95;color:#655732}
+.answer-card{border:1px solid #aac4b1;background:#edf5ec;border-radius:7px;padding:14px 18px;margin:20px 0 4px}
+.answer-card strong{font-size:13px;color:#496a53}
+.solution-content .answer-card p{font-size:18px;line-height:1.8;color:#214f36;font-weight:750;margin:4px 0}
+@media(max-width:800px){.overview-heading{align-items:flex-start;flex-direction:column;gap:8px}.overview-heading h2{font-size:21px}.overview-section{padding:6px 22px 24px}.worked-steps>li{padding:16px 15px 16px 48px}.worked-steps>li::before{left:12px}}
+@media(max-width:480px){.overview-section{padding:0 12px 22px}.overview-help{font-size:12px}.overview-scroll{max-height:60dvh}.solution-content{padding:15px 10px!important}.q-body .solution-content p,.q-body .solution-content p:last-child{font-size:15px;line-height:2}.method-card{padding:12px}.worked-steps>li{padding:14px 12px 14px 43px}.worked-steps>li::before{left:9px;top:15px;width:24px;height:24px}.worked-steps h5{font-size:15px}.figure-scroll svg{min-width:520px}.worked-figure figcaption,.worked-table figcaption{padding:10px 12px;font-size:13px}.solution-content .answer-card p{font-size:17px}}
+@media print{body[data-reading-side="right"],body[data-reading-side="left"]{padding:0;display:block;height:auto;overflow:visible}.page-content{overflow:visible}.reading-position{display:none!important}.overview-scroll{max-height:none;overflow:visible}.classification-table{min-width:0}.question-number{min-width:20px;min-height:24px}.worked-steps>li,.worked-figure,.answer-card{break-inside:avoid}}

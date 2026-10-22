@@ -11,6 +11,9 @@
  const makeDetails=(cls)=>{const e=node('details',cls);e.open=true;return e;};
  const summary=(parent,title,cls)=>{const s=node('summary');s.append(node('span','toggle-box'));s.firstChild.setAttribute('aria-hidden','true');s.append(node('span',cls,title));parent.append(s);return s;};
  const models=[];
+ const questionTargets=new Map();
+ const questionId=(bi,ui,key)=>'q-'+(bi+1)+'-'+(ui+1)+'-'+key;
+ const overviewId=(bi,key)=>'overview-'+(bi+1)+'-'+key;
  data.books.forEach((book,bi)=>{
   const b=makeDetails('book');b.id='book-'+(bi+1);b.style.setProperty('--book-color',colors[bi]);
   const bs=summary(b,book.title,'book-title'),bc=node('span','node-count');bs.append(bc);
@@ -21,8 +24,11 @@
    const questions=node('div','questions');u.append(questions);const qm=[];
    unit.questions.forEach(q=>{
     const item=makeDetails('question');item.dataset.year=String(q.year);item.dataset.key=q.key;
+    item.id=questionId(bi,ui,q.key);
+    if(!questionTargets.has(bi+':'+q.key))questionTargets.set(bi+':'+q.key,{item,unit:u,book:b,q});
     const qs=summary(item,q.label,'q-title');if(q.extra)qs.lastChild.append(node('span','q-extra',q.extra));
     const body=node('div','q-body');
+    const back=node('a','back-overview','↑ 回總表');back.href='#'+overviewId(bi,q.key);back.setAttribute('aria-label',q.label+'，回總表 '+book.title);body.append(back);
     q.blocks.forEach(block=>{
      if(block.type==='text'){const p=node('p',block.text==='題組共用題幹'||block.text==='前題條件'?'context-label':'',block.text);body.append(p);}
      else {const fig=node('figure');const img=node('img');img.src=block.src;img.alt=q.label+' 原卷題目或題組條件';img.loading='lazy';img.decoding='async';fig.append(img);body.append(fig);}
@@ -34,7 +40,15 @@
     const answerSummary=summary(answerDetails,'查看本題詳解','solution-title');
     answerSummary.setAttribute('aria-label',q.label+'，'+book.title+'，'+unit.title+'，詳解');
     const content=node('div','solution-content');
-    if(solution){
+    const richSolution=window.RICH_SOLUTIONS?.records[bi+':'+(ui+1)+':'+q.key];
+    if(richSolution){
+     // Build MathML/SVG only when requested, so hundreds of closed answers
+     // don't slow down filtering or scrolling on phones and older computers.
+     answerDetails.addEventListener('toggle',()=>{
+      if(answerDetails.open&&!content.dataset.loaded){content.innerHTML=richSolution;content.dataset.loaded='true';}
+     });
+    }
+    else if(solution){
      content.append(node('p','solution-scope',solution.scope));
      content.append(node('h4','','本單元切入'));
      content.append(node('p','solution-method',solution.method));
@@ -49,6 +63,7 @@
      content.append(node('p','','此單元詳解未載入，請確認 solutions.js 已完整更新。'));
     }
     answerDetails.append(content);body.append(answerDetails);
+    const backBottom=back.cloneNode(true);backBottom.classList.add('back-overview-bottom');body.append(backBottom);
     item.append(body);questions.append(item);qm.push({el:item,data:q});
    });
    units.append(u);um.push({el:u,count:uc,questions:qm});
@@ -85,5 +100,37 @@
  document.getElementById('expand-all').addEventListener('click',()=>{tree.querySelectorAll('details').forEach(d=>d.open=d.className!=='solution');});
  document.getElementById('collapse-all').addEventListener('click',()=>{tree.querySelectorAll('details').forEach(d=>d.open=false);});
  filter();
+ // Native fragment links are permanent, shareable and work with Back/Forward.
+ const overview=window.QUESTION_OVERVIEW;
+ if(overview){
+  const table=node('table','classification-table');const caption=node('caption','','110 至 115 年學測試題分類：依年度、卷別與冊別對照');table.append(caption);
+  const head=node('thead'),hr=node('tr');const corner=node('th','','年度／卷別');corner.scope='col';hr.append(corner);
+  overview.columns.forEach(bi=>{const th=node('th');th.scope='col';th.style.setProperty('--book-color',colors[bi]);th.append(node('span','',data.books[bi].title.replace(/\s*數學\s*\S+$/,'')),node('small','','數學 '+['1','2','3A','3B','4A','4B'][bi]));hr.append(th);});head.append(hr);table.append(head);
+  const tbody=node('tbody');
+  overview.rows.forEach(row=>{
+   const tr=node('tr');tr.dataset.year=String(row.year);const th=node('th');th.scope='row';th.append(node('span','',row.year+' 年'),node('small','',row.track==='數學'?'未分卷':row.track.replace('數','數 ')));tr.append(th);
+   row.cells.forEach(cell=>{
+    const td=node('td');const wrap=node('div','overview-numbers');
+    cell.questions.forEach(ref=>{const target=questionTargets.get(cell.book+':'+ref.key);if(!target)return;const a=node('a','question-number',ref.number);a.id=overviewId(cell.book,ref.key);a.href='#'+target.item.id;a.setAttribute('aria-label',row.year+' 年 '+row.track+' 第 '+ref.number+' 題，'+data.books[cell.book].title);wrap.append(a);});
+    if(!cell.questions.length){wrap.textContent='—';wrap.classList.add('not-applicable');}td.append(wrap);tr.append(td);
+   });tbody.append(tr);
+  });table.append(tbody);document.getElementById('overview-table').append(table);
+ }
+ let lastHighlight;
+ function goToFragment(){
+  let id;try{id=decodeURIComponent(location.hash.slice(1));}catch{return;}
+  if(!id)return;const target=document.getElementById(id);if(!target)return;
+  if(target.matches('.question')){
+   const input=yearInputs.find(e=>e.value===target.dataset.year);
+   if(input&&!input.checked){input.checked=true;filter();}
+   let parent=target;while(parent&&parent!==tree){if(parent.tagName==='DETAILS')parent.open=true;parent=parent.parentElement;}
+  }
+  if(lastHighlight)lastHighlight.classList.remove('jump-highlight');
+  target.classList.add('jump-highlight');lastHighlight=target;
+  requestAnimationFrame(()=>{target.scrollIntoView({block:'start',inline:'nearest'});if(target.matches('.question'))target.querySelector(':scope > summary').focus({preventScroll:true});else if(target.matches('a'))target.focus({preventScroll:true});});
+ }
+ // An already-active fragment still needs reopening after the user collapses it.
+ document.addEventListener('click',event=>{const a=event.target.closest('a[href^="#"]');if(a&&a.hash===location.hash){event.preventDefault();goToFragment();}});
+ window.addEventListener('hashchange',goToFragment);goToFragment();
 })();
 
